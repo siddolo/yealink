@@ -1,0 +1,16 @@
+<?php header("Content-type: text/xml; charset=utf-8"); ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<root_contact>
+<?php
+$replace = array("&", "'");
+mysql_connect('HOST', 'USER', 'PASS');
+mysql_select_db('DATABASE');
+$res = mysql_query("SELECT * FROM phonebook");
+while ($row = mysql_fetch_assoc($res)) {
+?>
+        <contact display_name="<?php echo str_replace($replace, "", $row['description']); ?>" office_number="<?php echo $row['number']; ?>" mobile_number=""/>
+<?php
+}
+mysql_close();
+?>
+</root_contact>
