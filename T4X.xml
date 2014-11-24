@@ -1,0 +1,20 @@
+<?php header("Content-type: text/xml; charset=utf-8"); ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<MyIPPhoneDirectory clearlight="true">
+<Prompt>Prompt</Prompt>
+<?php
+$replace = array("&", "'");
+mysql_connect('HOST', 'USER', 'PASS');
+mysql_select_db('DATABASE');
+$res = mysql_query("SELECT * FROM phonebook");
+while ($row = mysql_fetch_assoc($res)) {
+?>
+        <DirectoryEntry>
+                <Name><?php echo str_replace($replace, "", $row['description']); ?></Name>
+                <Telephone><?php echo $row['number']; ?></Telephone>
+        </DirectoryEntry>
+<?php
+}
+mysql_close();
+?>
+</MyIPPhoneDirectory>
